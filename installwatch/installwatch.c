@@ -70,6 +70,20 @@ int __installwatch_timecount = 0;
 #define REFCOUNT __installwatch_refcount++
 #define TIMECOUNT __installwatch_timecount++
 
+/* Reference: https://bbs.archlinux.org/viewtopic.php?pid=1968712 */
+#ifndef _STAT_VER
+	#if defined (__aarch64__)
+		#define _STAT_VER 0
+	#elif defined (__x86_64__)
+		#define _STAT_VER 1
+	#else
+		#define _STAT_VER 3
+	#endif
+#endif
+#ifndef _MKNOD_VER
+	#define _MKNOD_VER 0
+#endif
+
 static time_t (*true_time) (time_t *);
 static int (*true_chdir)(const char *);
 static int (*true_chmod)(const char *, mode_t);
